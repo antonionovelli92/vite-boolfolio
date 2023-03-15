@@ -17,6 +17,10 @@ export default {
             if (month < 10) month = '0' + month;
 
             return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
+        },
+        abstract() {
+            const abstract = this.project.content.slice(0, 200);
+            return abstract + '...';
         }
     }
 }
@@ -29,7 +33,8 @@ export default {
         </div>
         <div class="card-body d-flex justify-content-between">
             <img v-if="project.image" :src="project.image" :alt="project.slug" class="img-fluid">
-            <p>{{ project.content }}</p>
+            <p v-if="project.content.length > 1000">{{ abstract }}</p>
+            <p v-else>{{ project.content }}</p>
         </div>
         <div class="card-footer d-flex justify-content-between">
             <address>By {{ project.author }}</address>
