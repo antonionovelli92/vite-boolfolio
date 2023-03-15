@@ -28,6 +28,7 @@ export default {
             <h2>{{ project.title }}</h2>
         </div>
         <div class="card-body d-flex justify-content-between">
+            <img v-if="project.image" :src="project.image" :alt="project.slug" class="img-fluid">
             <p>{{ project.content }}</p>
         </div>
         <div class="card-footer d-flex justify-content-between">
