@@ -2,7 +2,7 @@
 export default {
     name: 'AppPagination',
     props: { links: Array },
-
+    emits: ['change-page']
 };
 </script>
 
