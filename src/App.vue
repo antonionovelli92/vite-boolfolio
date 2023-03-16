@@ -8,12 +8,19 @@ export default {
   name: 'App',
   components: { AppHeader, ProjectsList },
   data: () => ({
+    // credo una condizione dove isloading parte falso(lo spinner di caaricamento) pwe poin inserirlo prima di una chiamata delle api;
+    isLoading: false,
     projects: [],
   }),
   methods: {
     fetchProjects() {
+      this.isLoading = true;
       axios.get(apiBaseUrl + '/projects').then((res) => {
         this.projects = res.data;
+      }).catch((err) => {
+        console.error(err);
+      }).then(() => {
+        this.isLoading = false
       })
     }
   },
@@ -26,6 +33,7 @@ export default {
 <template>
   <AppHeader />
   <main class="container">
-    <ProjectsList :projects="projects" />
+    <AppLoader v-if="isLoading" />
+    <ProjectsList v-else :projects="projects" />
   </main>
 </template>
