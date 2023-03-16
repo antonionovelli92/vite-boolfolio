@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div v-if="isOpen" class="alert alert-danger alert-dismissible fade show" role="alert">
         <strong>Errore!</strong> Si è verificato un problema nel recupero dei progetti.
         <button type="button" class="btn-close" @click="$emit('close')"></button>
     </div>
