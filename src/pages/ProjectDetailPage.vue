@@ -15,7 +15,7 @@ export default {
             this.isLoading = true;
             const endpoint = apiBaseUrl + 'projects/' + this.$route.params.id;
             axios.get(endpoint).then(res => {
-                this.projects = res.data;
+                this.project = res.data;
             }).catch(err => {
                 console.log(err);
             }).then(() => {
@@ -32,5 +32,5 @@ export default {
 
 <template>
     <AppLoader v-if="isLoading" />
-    <ProjectCard v-else :project="project" />
+    <ProjectCard v-else :project="project" :isDetail="true" />
 </template>

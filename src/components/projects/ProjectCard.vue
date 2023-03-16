@@ -37,8 +37,7 @@ export default {
         </div>
         <div class="card-body d-flex justify-content-between ">
             <img v-if="project.image" :src="project.image" :alt="project.slug" class="img-fluid">
-            <p v-if="project.content.length > 1000">{{ abstract }}</p>
-            <p v-else>{{ project.content }}</p>
+            <p>{{ isDetail ? project.content : abstract }}</p>
         </div>
         <div class="card-footer d-flex justify-content-between align-items-center">
             <div>
@@ -46,7 +45,7 @@ export default {
                 <time><small>Pubblicato il</small> {{ postDate }}</time>
             </div>
             <!-- <router-link :to="`/projects/${project.id}`">Vedi</router-link> -->
-            <router-link class="btn btn-primary"
+            <router-link v-if="!isDetail" class="btn btn-primary"
                 :to="{ name: 'project-detail', params: { id: project.id } }">Vedi</router-link>
         </div>
     </div>
