@@ -2,12 +2,13 @@
 import axios from 'axios';
 import AppHeader from './components/AppHeader.vue';
 import AppAlert from './components/AppAlert.vue';
+import AppPagination from './components/AppPagination.vue';
 import ProjectsList from './components/projects/ProjectsList.vue';
 const apiBaseUrl = 'http://127.0.0.1:8000/api';
 
 export default {
   name: 'App',
-  components: { AppHeader, AppAlert, ProjectsList },
+  components: { AppHeader, AppAlert, ProjectsList, AppPagination },
   data: () => ({
     // credo una condizione dove isloading parte falso(lo spinner di caaricamento) pwe poin inserirlo prima di una chiamata delle api;
     isLoading: false,
@@ -44,20 +45,7 @@ export default {
     <AppLoader v-if="isLoading" />
     <ProjectsList v-else :projects="projects.data" />
     <footer>
-
-      <nav>
-        <ul class="pagination">
-
-          <li v-for="link in projects.links" :key="link.label" class="page-item"
-            :class="[{ 'active': link.active }, { 'disabled': !link.url }]">
-            <!-- uso il v-html per far vedere tradotto il risultato dell'html (potevo usare anche usare la doppia graffa con i punti esclamativi) -->
-            <button type="button" :disabled="!link.url" class="page-link" href="#" v-html="link.label"
-              @click="fetchProjects(link.url)"></button>
-          </li>
-
-        </ul>
-      </nav>
-
+      <AppPagination :links="projects.links" @change-page="fetchProjects" />
     </footer>
   </main>
 </template>
