@@ -1,7 +1,10 @@
 <script>
 export default {
     name: 'ProjectCard',
-    props: { project: Object },
+    props: {
+        project: Object,
+        isDetail: Boolean
+    },
     computed: {
         postDate() {
             const date = new Date(this.project.updated_at);
@@ -29,16 +32,22 @@ export default {
 <template>
     <div class="card my-3">
         <div class="card-header">
-            <h2>{{ project.title }}</h2>
+            <h2 v-if="project.title">{{ project.title }}</h2>
+            <h2 v-else>Titolo non disponibile</h2>
         </div>
-        <div class="card-body d-flex justify-content-between">
+        <div class="card-body d-flex justify-content-between ">
             <img v-if="project.image" :src="project.image" :alt="project.slug" class="img-fluid">
             <p v-if="project.content.length > 1000">{{ abstract }}</p>
             <p v-else>{{ project.content }}</p>
         </div>
-        <div class="card-footer d-flex justify-content-between">
-            <address>By {{ project.author }}</address>
-            <time><small>Pubblicato il</small> {{ postDate }}</time>
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            <div>
+                <address>By {{ project.author }}</address>
+                <time><small>Pubblicato il</small> {{ postDate }}</time>
+            </div>
+            <!-- <router-link :to="`/projects/${project.id}`">Vedi</router-link> -->
+            <router-link class="btn btn-primary"
+                :to="{ name: 'project-detail', params: { id: project.id } }">Vedi</router-link>
         </div>
     </div>
 </template>
